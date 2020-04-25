@@ -41,7 +41,13 @@ e e e e e e e e e e e e e e e e
 e e e e e e e e e e e e e e e e 
 `
 }
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    alien.say("You're coming with me", 1000)
+    man.destroy(effects.halo, 500)
+})
 let projectile: Sprite = null
+let alien: Sprite = null
+let man: Sprite = null
 scene.setBackgroundImage(img`
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
@@ -187,7 +193,7 @@ tiles.setTilemap(tiles.createTilemap(
             [myTiles.tile0,myTiles.tile1],
             TileScale.Sixteen
         ))
-let mySprite = sprites.create(img`
+man = sprites.create(img`
 . . . . . . e e e . . . . . . . 
 . . . . . e 3 3 3 e . . . . . . 
 . . . . . . f 3 f . . . . . . . 
@@ -205,26 +211,8 @@ let mySprite = sprites.create(img`
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . c c c c c c c . . . . . 
 `, SpriteKind.Player)
-controller.moveSprite(mySprite, 100, 100)
-let mySprite2 = sprites.create(img`
-. . . . . . 1 1 1 1 . . . . . . 
-. . . . . 1 f 1 1 f 1 . . . . . 
-. . . . . 1 f 1 1 f 1 . . . . . 
-. . . . . . 1 1 1 1 . . . . . . 
-. . . . . . 1 f f 1 . . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-. . . . . 1 1 1 1 1 1 . . . . . 
-. . . . 1 1 1 1 1 1 1 1 . . . . 
-. . . . 1 . 1 1 1 1 . 1 . . . . 
-. . . . 1 . 1 1 1 1 . 1 . . . . 
-. . . . 1 . . 1 1 . . 1 . . . . 
-. . . . . . . 1 1 . . . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-. . . . . 1 1 1 1 1 1 . . . . . 
-`, SpriteKind.Enemy)
-let mySprite3 = sprites.create(img`
+controller.moveSprite(man, 100, 0)
+let ship = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -242,7 +230,12 @@ d d d d d d d d d d d d d d d d
 . . d d d d d d d d d d d . . . 
 . . . . d d d d d d d . . . . . 
 `, SpriteKind.ufo)
-let mySprite4 = sprites.create(img`
+if (ship) {
+    ship.x += 0
+} else {
+	
+}
+let laser = sprites.create(img`
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
@@ -260,9 +253,30 @@ let mySprite4 = sprites.create(img`
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 `, SpriteKind.Projectile)
-mySprite3.setVelocity(50, 0)
+ship.setVelocity(50, Math.randomRange(0, 10))
+pause(5000)
+alien = sprites.create(img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+`, SpriteKind.Enemy)
+alien.setPosition(160, 110)
+alien.follow(man)
 game.onUpdate(function () {
-    mySprite.setImage(img`
+    man.setImage(img`
 . . . . . . e e e . . . . . . . 
 . . . . . e 3 3 3 e . . . . . . 
 . . . . . . f 3 f . . . . . . . 
@@ -280,8 +294,8 @@ game.onUpdate(function () {
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . c c c c c c c . . . . . 
 `)
-    if (mySprite.vy < 0) {
-        mySprite.setImage(img`
+    if (man.vy < 0) {
+        man.setImage(img`
 . . . . . . . . . . . . . . . . 
 . . 3 . . . e e e . . . 3 . . . 
 . . e . . e f 3 f e . . e . . . 
@@ -300,7 +314,7 @@ game.onUpdate(function () {
 . . . . . e e e e e e . . . . . 
 `)
     } else {
-        mySprite.setImage(img`
+        man.setImage(img`
 . . . . . . e e e . . . . . . . 
 . . . . . e 3 3 3 e . . . . . . 
 . . . . . . f 3 f . . . . . . . 
@@ -318,8 +332,8 @@ game.onUpdate(function () {
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . c c c c c c c . . . . . 
 `)
-        if (mySprite.vy > 0) {
-            mySprite.setImage(img`
+        if (man.vy > 0) {
+            man.setImage(img`
 . . . . . e e e . . . . . . . . 
 . . . . e e e e e . . . . . . . 
 . . . . e 3 3 3 e . . . . . . . 
@@ -338,7 +352,7 @@ e 8 8 8 8 8 8 8 8 8 8 8 8 8 e .
 . . . . . . . . . . . . . . . . 
 `)
         } else {
-            mySprite.setImage(img`
+            man.setImage(img`
 . . . . . . e e e . . . . . . . 
 . . . . . e 3 3 3 e . . . . . . 
 . . . . . . f 3 f . . . . . . . 
@@ -355,6 +369,104 @@ e 8 8 8 8 8 8 8 8 8 8 8 8 8 e .
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . c c c c c c c . . . . . 
+`)
+        }
+    }
+})
+game.onUpdate(function () {
+    man.setImage(img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+`)
+    if (man.vy < 0) {
+        man.setImage(img`
+. . . . . . . . . . . . . . . . 
+. . 3 . . . e e e . . . 3 . . . 
+. . e . . e f 3 f e . . e . . . 
+. . e e . . 3 f 3 . . e e . . . 
+. . . e e . 3 3 3 . e e . . . . 
+. . . . e e e e e e e . . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . . . 8 8 8 8 . . . . . . 
+. . . . . . 8 c 8 8 . . . . . . 
+. . . . . . 8 c 8 8 . . . . . . 
+. . . . . . 8 c 8 8 . . . . . . 
+. . . . . . 8 8 c 8 . . . . . . 
+. . . . . e e e e e e . . . . . 
+`)
+    } else {
+        man.setImage(img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+`)
+        if (man.vy > 0) {
+            man.setImage(img`
+. . . . . e e e . . . . . . . . 
+. . . . e e e e e . . . . . . . 
+. . . . e 3 3 3 e . . . . . . . 
+. . . . . 3 3 3 . . . . . . . . 
+. . . . . f 3 f . . . . . . . . 
+. . . . e e e e e . . . . . . . 
+. . . e e e e e e e . . . . . . 
+. . e e e e e e e e e . . . . . 
+. e e e e e e e e e e e . . . . 
+. . e e e e e e e e e . . . . . 
+e . . 3 3 e e e 3 3 . . . . e . 
+e 8 8 8 8 8 8 8 8 8 8 8 8 8 e . 
+e 8 8 8 8 8 8 8 8 8 8 8 8 8 e . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`)
+        } else {
+            man.setImage(img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
 `)
         }
     }
@@ -377,5 +489,5 @@ game.onUpdateInterval(1000, function () {
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
-`, mySprite3, 0, 100)
+`, ship, 0, 100)
 })
