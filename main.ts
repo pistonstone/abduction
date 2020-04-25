@@ -1,3 +1,39 @@
+let mySprite = sprites.create(img`
+. . . . . . e e e . . . . . . . 
+. . . . . e 3 3 3 e . . . . . . 
+. . . . . . f 3 f . . . . . . . 
+. . . . . . 3 f 3 . . . . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . e e e e e e e . . . . . 
+. . . e e e e e e e e e . . . . 
+. . . e . e e e e e . e . . . . 
+. . . 3 . e e e e e . 3 . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . . 8 8 8 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . c c c c c c c . . . . . 
+`, SpriteKind.Player)
+let mySprite2 = sprites.create(img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+`, SpriteKind.Enemy)
 scene.setBackgroundImage(img`
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 

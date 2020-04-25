@@ -1,4 +1,38 @@
-<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id="@Y!.Z7fTjX3%wBCBU1S[" x="0" y="0"><statement name="HANDLER"><block type="gamesetbackgroundimage" id="ssK{neOTub/N}AnU;.Eb"><value name="img"><shadow type="background_image_picker" id="r?f!B_5[7M3%*jE8!~-$"><field name="img">img`
+<xml xmlns="https://developers.google.com/blockly/xml"><variables><variable type="KIND_SpriteKind" id="VITs5{sZ*rE^6Cbgupbj">Player</variable><variable type="KIND_SpriteKind" id="wh_Ge-5X9,WV/[5o4;`6">Projectile</variable><variable type="KIND_SpriteKind" id="ZI`nvbCTf16`lU7v.k=%">Food</variable><variable type="KIND_SpriteKind" id="EANP1EDC6iF0;n3%sLW3">Enemy</variable><variable id="^|rvSh:OE?aa,Q+*fb}r">mySprite</variable><variable id="VEH~l(g+{1[,%7J`)uVL">mySprite2</variable></variables><block type="pxt-on-start" id="@Y!.Z7fTjX3%wBCBU1S[" x="0" y="0"><statement name="HANDLER"><block type="variables_set" id="~fdsD.ud30T3iu=azf.|"><field name="VAR" id="^|rvSh:OE?aa,Q+*fb}r">mySprite</field><value name="VALUE"><shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="WY%qr5ead,q+U1{^kYBl"><value name="img"><shadow type="screen_image_picker" id="ZU2c0Xh,|;7jZ4t:1`P,"><field name="img">img`
+. . . . . . e e e . . . . . . . 
+. . . . . e 3 3 3 e . . . . . . 
+. . . . . . f 3 f . . . . . . . 
+. . . . . . 3 f 3 . . . . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . e e e e e e e . . . . . 
+. . . e e e e e e e e e . . . . 
+. . . e . e e e e e . e . . . . 
+. . . 3 . e e e e e . 3 . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . . 8 8 8 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . c c c c c c c . . . . . 
+`</field></shadow></value><value name="kind"><shadow type="spritekind" id="9KsT@LcmUCFx).df1c3;"><field name="MEMBER">Player</field></shadow></value></block></value><next><block type="variables_set" id="@P!nw${3}/QWe7eDXVY("><field name="VAR" id="VEH~l(g+{1[,%7J`)uVL">mySprite2</field><value name="VALUE"><shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="WP2.bhWkL49/FA+4KZ=,"><value name="img"><shadow type="screen_image_picker" id="OAPiMne.T)%,#p%Pj[ph"><field name="img">img`
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . 1 f 1 1 f 1 . . . . . 
+. . . . . . 1 1 1 1 . . . . . . 
+. . . . . . 1 f f 1 . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 1 1 1 1 1 1 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . 1 1 1 1 . 1 . . . . 
+. . . . 1 . . 1 1 . . 1 . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+`</field></shadow></value><value name="kind"><shadow type="spritekind" id="|=y7EdoQz5@k54K}3y5K"><field name="MEMBER">Enemy</field></shadow></value></block></value><next><block type="gamesetbackgroundimage" id="ssK{neOTub/N}AnU;.Eb"><value name="img"><shadow type="background_image_picker" id="r?f!B_5[7M3%*jE8!~-$"><field name="img">img`
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
@@ -119,4 +153,4 @@ f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-`</field></shadow></value></block></statement></block></xml>
+`</field></shadow></value></block></next></block></next></block></statement></block></xml>
