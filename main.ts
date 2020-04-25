@@ -42,8 +42,10 @@ e e e e e e e e e e e e e e e e
 `
 }
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
-    alien.say("You're coming with me", 1000)
+    alien.say("You're coming with me", 2000)
     man.destroy(effects.halo, 500)
+    alien.follow(man, 20)
+    alien.setPosition(man + 80, man + 80)
 })
 let projectile: Sprite = null
 let alien: Sprite = null
@@ -330,8 +332,6 @@ alien = sprites.create(img`
 . . . . . . . 1 1 . . . . . . . 
 . . . . . 1 1 1 1 1 1 . . . . . 
 `, SpriteKind.Enemy)
-alien.setPosition(160, 110)
-alien.follow(man)
 game.onUpdate(function () {
     man.setImage(img`
 . . . . . . e e e . . . . . . . 
@@ -427,6 +427,81 @@ e 8 8 8 8 8 8 8 8 8 8 8 8 8 e .
 . . . . . 8 8 c 8 8 . . . . . . 
 . . . . c c c c c c c . . . . . 
 `)
+        }
+        man.setImage(img`
+. . . . . . e e e . . . . . . . 
+. . . . . e 3 3 3 e . . . . . . 
+. . . . . . f 3 f . . . . . . . 
+. . . . . . 3 f 3 . . . . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . e e e e e e e . . . . . 
+. . . e e e e e e e e e . . . . 
+. . . e . e e e e e . e . . . . 
+. . . 3 . e e e e e . 3 . . . . 
+. . . . . e e e e e . . . . . . 
+. . . . . 8 8 8 8 8 . 3 . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . . 8 8 c 8 8 . . . . . . 
+. . . . c c c c c c c . . . . . 
+`)
+        if (man.vx > 0) {
+            man.setImage(img`
+. . . . . . . e e e e . . . . . 
+. . . . . . . e 3 e 3 . . . . . 
+. . . . . . . e e 3 3 3 . . . . 
+. . . . . . . 3 3 3 3 . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . e e e e e . . . . . . . 
+. . . e e e e e e . . . . . . . 
+. . . e . e e e e e . . . . . . 
+. . . 3 . e e . . e e 3 . . . . 
+. . . . . e e . . . . . . . . . 
+. . . 8 8 8 8 . . . . . . . . . 
+. 8 8 8 8 8 8 8 . . . . . . . . 
+c 8 8 . . . 8 8 8 . . . . . . . 
+c 8 . . . 8 8 8 . . . . . . . . 
+c . . . . 8 8 . . . . . . . . . 
+. . . . . c c c . . . . . . . . 
+`)
+        } else {
+            man.setImage(img`
+. . . . . . . e e e e . . . . . 
+. . . . . . . e 3 e 3 . . . . . 
+. . . . . . . e e 3 3 3 . . . . 
+. . . . . . . 3 3 3 3 . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . e e e e e . . . . . . . 
+. . . e e e e e e . . . . . . . 
+. . . e . e e e e e . . . . . . 
+. . . 3 . e e . . e e 3 . . . . 
+. . . . . e e . . . . . . . . . 
+. . . 8 8 8 8 . . . . . . . . . 
+. 8 8 8 8 8 8 8 . . . . . . . . 
+c 8 8 . . . 8 8 8 . . . . . . . 
+c 8 . . . 8 8 8 . . . . . . . . 
+c . . . . 8 8 . . . . . . . . . 
+. . . . . c c c . . . . . . . . 
+`)
+            img`
+. . . . . . . e e e e . . . . . 
+. . . . . . . e 3 e 3 . . . . . 
+. . . . . . . e e 3 3 3 . . . . 
+. . . . . . . 3 3 3 3 . . . . . 
+. . . . . . e e e e . . . . . . 
+. . . . e e e e e . . . . . . . 
+. . . e e e e e e . . . . . . . 
+. . . e . e e e e e . . . . . . 
+. . . 3 . e e . . e e 3 . . . . 
+. . . . . e e . . . . . . . . . 
+. . . 8 8 8 8 . . . . . . . . . 
+. 8 8 8 8 8 8 8 . . . . . . . . 
+c 8 8 . . . 8 8 8 . . . . . . . 
+c 8 . . . 8 8 8 . . . . . . . . 
+c . . . . 8 8 . . . . . . . . . 
+. . . . . c c c . . . . . . . . 
+`.flipX()
         }
     }
 })
