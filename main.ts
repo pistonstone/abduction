@@ -46,8 +46,20 @@ scene.onHitWall(SpriteKind.ufo, function (sprite) {
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     alien.say("You're coming with me", 2000)
-    man.destroy(effects.halo, 500)
-    alien.follow(man, 20)
+    if (true) {
+        man.vy += -250
+    }
+    pause(2000)
+    info.changeLifeBy(-1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    projectile.destroy(effects.fire, 500)
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (man.vy == 0) {
+        man.vy = -150
+    }
 })
 let projectile: Sprite = null
 let alien: Sprite = null
@@ -209,8 +221,9 @@ man = sprites.create(img`
 . . . . c c c c c c c . . . . . 
 `, SpriteKind.Player)
 man.setPosition(25, 90)
-man.setVelocity(0, 200)
-controller.moveSprite(man, 100, 100)
+man.ay = 350
+info.setLife(3)
+controller.moveSprite(man, 100, 0)
 scene.cameraFollowSprite(man)
 ship = sprites.create(img`
 . . . . . . . . . . . . . . . . 
@@ -287,27 +300,26 @@ c b d d d d d d d d d d d d b c
 500,
 true
 )
-ship.setFlag(SpriteFlag.StayInScreen, false)
-ship.setVelocity(50, 0)
+ship.setVelocity(20, 0)
 let laser = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 . . . . . 9 5 5 9 . . . . . . . 
 `, SpriteKind.Projectile)
-pause(5000)
+pause(1000)
 alien = sprites.create(img`
 . . . . . . 1 1 1 1 . . . . . . 
 . . . . . 1 f 1 1 f 1 . . . . . 
@@ -326,6 +338,28 @@ alien = sprites.create(img`
 . . . . . . . 1 1 . . . . . . . 
 . . . . . 1 1 1 1 1 1 . . . . . 
 `, SpriteKind.Enemy)
+alien.ay = 400
+game.onUpdateInterval(2000, function () {
+    projectile = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+. . . . . 9 5 5 9 . . . . . . . 
+`, ship, 0, 50)
+    laser.destroy(effects.rings, 500)
+})
 game.onUpdate(function () {
     alien.setImage(img`
 . . . . . . 1 1 1 1 . . . . . . 
@@ -579,24 +613,4 @@ c . . . . 8 8 . . . . . . . . .
             }
         }
     }
-})
-game.onUpdateInterval(1000, function () {
-    projectile = sprites.createProjectileFromSprite(img`
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-. . . . . 9 5 5 9 . . . . . . . 
-`, ship, 0, 100)
 })
